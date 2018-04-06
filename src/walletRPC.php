@@ -53,6 +53,8 @@ class walletRPC
    * @param  string  $password  monero-wallet-rpc passphrase             (optional)
    *
    */
+  const BASE_UNIT = 1000000000000;
+
   function __construct ($host = '127.0.0.1', $port = 18083, $protocol = 'http', $user = null, $password = null)
   {
     $this->host = $host;
@@ -107,7 +109,7 @@ class walletRPC
   public function _transform($amount = 0)
   {
     //
-    return $amount * 1000000000000;
+    return $amount * self::BASE_UNIT;
   }
 
   /**
