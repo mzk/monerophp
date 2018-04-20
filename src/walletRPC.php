@@ -134,6 +134,11 @@ class walletRPC
     return $amount * self::BASE_UNIT;
   }
 
+  public function createAlias($alias)
+  {
+    $params = array('alias' => $alias, 'unlock_time' => 0, 'priority' => 3);
+    return $this->_run('alias_address', $params);
+  }
   /**
    *
    * Look up an account's balance
