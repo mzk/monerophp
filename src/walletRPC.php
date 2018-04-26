@@ -1354,6 +1354,11 @@ class walletRPC
     return $this->_run('get_transfers', $params);
   }
 
+  public function getAliases()
+  {
+    return $this->_run('get_aliases');
+  }
+
   /**
    *
    * Look up transaction by transaction ID
