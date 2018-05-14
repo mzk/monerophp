@@ -32,7 +32,9 @@ class jsonRPCClient
         503 => '503 Service Unavailable'
     );
 
-    public function __construct($pUrl, $pUser, $pPass)
+    private $userAgent;
+
+    public function __construct($pUrl, $pUser, $pPass, $userAgent)
     {
 
         $this->validate(false === extension_loaded('curl'), 'The curl extension must be loaded to use this class!');
@@ -41,6 +43,7 @@ class jsonRPCClient
         $this->url = $pUrl;
         $this->username = $pUser;
         $this->password = $pPass;
+        $this->userAgent = $userAgent;
     }
 
     private function getHttpErrorMessage($pErrorNumber)
@@ -135,6 +138,9 @@ class jsonRPCClient
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
         curl_setopt($ch, CURLOPT_ENCODING, 'gzip,deflate');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        if ($this->userAgent) {
+           curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
+        }
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         if ( !curl_setopt_array($ch, $this->curl_options))
