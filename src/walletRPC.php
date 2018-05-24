@@ -41,7 +41,6 @@ class walletRPC
   private $url;
   private $user;
   private $password;
-  private $userAgent;
 
   /**
    *
@@ -52,12 +51,11 @@ class walletRPC
    * @param  string  $protocol  monero-wallet-rpc protocol (eg. 'http')  (optional)
    * @param  string  $user      monero-wallet-rpc username               (optional)
    * @param  string  $password  monero-wallet-rpc passphrase             (optional)
-   * @param  string  $userAgent monero-wallet-rpc userAgent             (optional)
    *
    */
   const BASE_UNIT = 1000000000;
 
-  function __construct ($host = '127.0.0.1', $port = 18083, $protocol = 'http', $user = null, $password = null, $userAgent = null)
+  function __construct ($host = '127.0.0.1', $port = 18083, $protocol = 'http', $user = null, $password = null)
   {
     if (is_array($host)) { // Parameters passed in as object/dictionary
       $params = $host;
@@ -86,10 +84,9 @@ class walletRPC
     $this->protocol = $protocol;
     $this->user = $user;
     $this->password = $password;
-    $this->userAgent = $userAgent;
 
     $this->url = $protocol.'://'.$host.':'.$port.'/json_rpc';
-    $this->client = new jsonRPCClient($this->url, $this->user, $this->password, $this->userAgent);
+    $this->client = new jsonRPCClient($this->url, $this->user, $this->password);
   }
 
   /**
