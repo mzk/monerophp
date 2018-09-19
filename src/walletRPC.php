@@ -134,6 +134,12 @@ class walletRPC
     return $amount * self::BASE_UNIT;
   }
 
+	public function createAliasFee()
+	{
+		$params = array('alias' => "xxxxxxxxxxxx", 'unlock_time' => 0, 'priority' => 3, 'do_not_relay' => true);
+		return $this->_run('alias_address', $params);
+	}
+
   public function createAlias($alias)
   {
     $params = array('alias' => $alias, 'unlock_time' => 0, 'priority' => 3);
