@@ -1304,7 +1304,7 @@ class walletRPC
    * }
    *
    */
-  public function get_transfers($input_types = ['all'], $account_index = 0, $subaddr_indices = '', $min_height = 0, $max_height = 4206931337)
+  public function get_transfers($input_types = ['all'], $account_index = 0, $subaddr_indices = '', $min_height = 0, $max_height = 4206931337, $from = "", $to = "")
   {
     if (is_string($input_types)) { // If user is using old method
         $params = array('subaddr_indices' => $subaddr_indices, 'min_height' => $min_height, 'max_height' => $max_height);
@@ -1351,6 +1351,18 @@ class walletRPC
       $params['pending'] = true;
       $params['failed'] = true;
       $params['pool'] = true;
+    }
+
+    if ($from instanceof DateTime || $to instanceof DateTime) {
+      $params["filter_by_timestamp"] = true;
+      if ($from instanceof DateTime) {
+        $params["min_timestamp"] = $from->getTimestamp();
+      }
+      if ($to instanceof DateTime) {
+        $params["max_timestamp"] = $to->getTimestamp();
+      } else {
+        $params["max_timestamp"] = (new DateTime)->getTimestamp();
+      }
     }
 
     if (($min_height || $max_height) && $max_height != 4206931337) {
