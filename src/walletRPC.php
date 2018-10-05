@@ -136,7 +136,7 @@ class walletRPC
 
 	public function createAliasFee()
 	{
-		$params = array('alias' => "xxxxxxxxxxxx", 'unlock_time' => 0, 'priority' => 3, 'do_not_relay' => true);
+		$params = array('alias' => "xxxxxxxxxx", 'unlock_time' => 0, 'priority' => 3, 'do_not_relay' => true);
 		return $this->_run('alias_address', $params);
 	}
 
